@@ -1,0 +1,25 @@
+# API Keys and Environment Variables
+.env
+.env.local
+.env.*
+
+# Python virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Experimental Run Outputs (Optional to ignore, keeps Git clean)
+results_pilot.json
+comparison_pilot.png

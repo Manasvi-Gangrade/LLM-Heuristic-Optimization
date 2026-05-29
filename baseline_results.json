@@ -1,0 +1,29 @@
+{
+  "Nearest Neighbor": {
+    "model": "Nearest Neighbor",
+    "best_fitness": 1.0,
+    "avg_gap_pct": 0.0,
+    "avg_runtime_s": 0.000367,
+    "successes": 50,
+    "total": 50,
+    "robustness_std": 0.0
+  },
+  "2-Opt Local Search": {
+    "model": "2-Opt Local Search",
+    "best_fitness": 1.091,
+    "avg_gap_pct": -12.91,
+    "avg_runtime_s": 0.012316,
+    "successes": 50,
+    "total": 50,
+    "robustness_std": 0.0532
+  },
+  "Greedy Edge": {
+    "model": "Greedy Edge",
+    "best_fitness": 1.0226,
+    "avg_gap_pct": -4.18,
+    "avg_runtime_s": 0.001281,
+    "successes": 50,
+    "total": 50,
+    "robustness_std": 0.0755
+  }
+}

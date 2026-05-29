@@ -1,0 +1,1781 @@
+{
+  "llama-4-scout": {
+    "model": "LLaMA 4 Scout",
+    "best_fitness": 1.0119,
+    "avg_gap_pct": -9.72,
+    "avg_runtime_s": 3.081,
+    "api_calls": 7,
+    "fitness_history": [
+      0.9979409675916737,
+      1.004785817090434,
+      1.004785817090434
+    ],
+    "best_code": "import numpy as np\nimport random\n\ndef heuristic(problem_instance):\n    n = problem_instance[\"n_cities\"]\n    dist = problem_instance[\"dist_matrix\"]\n    tour = list(range(n))\n    random.shuffle(tour)\n    for _ in range(n // 2):\n        improved = False\n        for i in range(n):\n            for j in range(i + 1, n):\n                new_tour = tour[:i] + list(reversed(tour[i:j])) + tour[j:]\n                new_cost = sum(dist[new_tour[k]][new_tour[k+1]] for k in range(n-1)) + dist[new_tour[-1]][new_tour[0]]\n                old_cost = sum(dist[tour[k]][tour[k+1]] for k in range(n-1)) + dist[tour[-1]][tour[0]]\n                if new_cost < old_cost:\n                    tour = new_tour\n                    improved = True\n        if not improved:\n            break\n    for i in range(n):\n        for j in range(i + 1, n):\n            new_tour = tour[:i] + list(reversed(tour[i:j])) + tour[j:]\n            new_cost = sum(dist[new_tour[k]][new_tour[k+1]] for k in range(n-1)) + dist[new_tour[-1]][new_tour[0]]\n            old_cost = sum(dist[tour[k]][tour[k+1]] for k in range(n-1)) + dist[tour[-1]][tour[0]]\n            if new_cost < old_cost:\n                tour = new_tour\n    cost = sum(dist[tour[i]][tour[i+1]] for i in range(n-1)) + dist[tour[-1]][tour[0]]\n    return {\"tour\": tour, \"cost\": cost}",
+    "instance_evals": [
+      {
+        "instance_id": "tsp_50_0",
+        "cost": 622.4470505615828,
+        "baseline": 636.7614012904136,
+        "gap": -0.0225,
+        "runtime": 2.6908,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_1",
+        "cost": 554.9342859148572,
+        "baseline": 667.241210295906,
+        "gap": -0.1683,
+        "runtime": 2.8551,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_2",
+        "cost": 588.2122748574668,
+        "baseline": 621.7332032698043,
+        "gap": -0.0539,
+        "runtime": 3.0337,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_3",
+        "cost": 604.697579219647,
+        "baseline": 680.8135572197727,
+        "gap": -0.1118,
+        "runtime": 3.4745,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_4",
+        "cost": 612.4569239932729,
+        "baseline": 796.7443242945358,
+        "gap": -0.2313,
+        "runtime": 3.1072,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_5",
+        "cost": 626.711586143362,
+        "baseline": 652.7974126000922,
+        "gap": -0.04,
+        "runtime": 2.8233,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_6",
+        "cost": 566.700693979329,
+        "baseline": 643.6616549115923,
+        "gap": -0.1196,
+        "runtime": 2.769,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_7",
+        "cost": 615.590724528398,
+        "baseline": 657.8425843489629,
+        "gap": -0.0642,
+        "runtime": 4.3866,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_8",
+        "cost": 625.9693879969805,
+        "baseline": 692.720617719813,
+        "gap": -0.0964,
+        "runtime": 2.8771,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_9",
+        "cost": 611.355359292395,
+        "baseline": 613.5108584294403,
+        "gap": -0.0035,
+        "runtime": 2.6441,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_10",
+        "cost": 571.7477234409149,
+        "baseline": 568.5387223317051,
+        "gap": 0.0056,
+        "runtime": 2.6747,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_11",
+        "cost": 625.9900678262369,
+        "baseline": 660.2204635188243,
+        "gap": -0.0518,
+        "runtime": 2.6934,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_12",
+        "cost": 660.1717459651765,
+        "baseline": 758.1469673367103,
+        "gap": -0.1292,
+        "runtime": 2.6107,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_13",
+        "cost": 637.9396846626668,
+        "baseline": 682.756857099834,
+        "gap": -0.0656,
+        "runtime": 2.4366,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_14",
+        "cost": 644.7050227127453,
+        "baseline": 700.4436194874152,
+        "gap": -0.0796,
+        "runtime": 2.9496,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_15",
+        "cost": 598.9543914512343,
+        "baseline": 769.8550938338797,
+        "gap": -0.222,
+        "runtime": 3.2668,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_16",
+        "cost": 605.3839574389318,
+        "baseline": 716.3962354682793,
+        "gap": -0.155,
+        "runtime": 2.9723,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_17",
+        "cost": 627.9246823450004,
+        "baseline": 697.4069949192278,
+        "gap": -0.0996,
+        "runtime": 3.3854,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_18",
+        "cost": 679.4721683489195,
+        "baseline": 761.1049178334797,
+        "gap": -0.1073,
+        "runtime": 3.2505,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_19",
+        "cost": 705.126424194312,
+        "baseline": 728.68229038542,
+        "gap": -0.0323,
+        "runtime": 2.4332,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_20",
+        "cost": 593.9704648695873,
+        "baseline": 606.6290255764338,
+        "gap": -0.0209,
+        "runtime": 2.5871,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_21",
+        "cost": 589.30247547328,
+        "baseline": 764.96039947956,
+        "gap": -0.2296,
+        "runtime": 3.3822,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_22",
+        "cost": 584.6221403246441,
+        "baseline": 603.4463390072337,
+        "gap": -0.0312,
+        "runtime": 3.3154,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_23",
+        "cost": 637.0815359780687,
+        "baseline": 702.7418946961868,
+        "gap": -0.0934,
+        "runtime": 3.415,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_24",
+        "cost": 620.8989607308198,
+        "baseline": 614.6052361282219,
+        "gap": 0.0102,
+        "runtime": 3.1163,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_25",
+        "cost": 669.79082999945,
+        "baseline": 668.6352566424412,
+        "gap": 0.0017,
+        "runtime": 3.0608,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_26",
+        "cost": 553.715430450965,
+        "baseline": 670.7019723474398,
+        "gap": -0.1744,
+        "runtime": 2.9718,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_27",
+        "cost": 614.9486115842303,
+        "baseline": 667.7511409650506,
+        "gap": -0.0791,
+        "runtime": 4.1624,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_28",
+        "cost": 697.6714887559455,
+        "baseline": 743.1284741330015,
+        "gap": -0.0612,
+        "runtime": 2.7642,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_29",
+        "cost": 654.889823284627,
+        "baseline": 726.7085629003509,
+        "gap": -0.0988,
+        "runtime": 2.8641,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_30",
+        "cost": 610.3754348676663,
+        "baseline": 694.2511692189754,
+        "gap": -0.1208,
+        "runtime": 3.0995,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_31",
+        "cost": 579.8697810538597,
+        "baseline": 740.1814987966691,
+        "gap": -0.2166,
+        "runtime": 3.2156,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_32",
+        "cost": 615.3050321177859,
+        "baseline": 715.0625180336837,
+        "gap": -0.1395,
+        "runtime": 3.1238,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_33",
+        "cost": 664.3122098272892,
+        "baseline": 796.8911951570983,
+        "gap": -0.1664,
+        "runtime": 2.9023,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_34",
+        "cost": 606.6689796137492,
+        "baseline": 746.9364356549866,
+        "gap": -0.1878,
+        "runtime": 2.912,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_35",
+        "cost": 641.0946091629817,
+        "baseline": 738.4625404825164,
+        "gap": -0.1319,
+        "runtime": 3.1761,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_36",
+        "cost": 631.025733628473,
+        "baseline": 702.5015674724406,
+        "gap": -0.1017,
+        "runtime": 2.8495,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_37",
+        "cost": 603.772363594643,
+        "baseline": 572.8022044137426,
+        "gap": 0.0541,
+        "runtime": 3.3594,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_38",
+        "cost": 677.566942400533,
+        "baseline": 761.7478882006073,
+        "gap": -0.1105,
+        "runtime": 2.6851,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_39",
+        "cost": 585.0666191050469,
+        "baseline": 682.6289112611378,
+        "gap": -0.1429,
+        "runtime": 2.9338,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_40",
+        "cost": 564.2012014662001,
+        "baseline": 688.8978931058144,
+        "gap": -0.181,
+        "runtime": 3.0231,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_41",
+        "cost": 605.8474169957947,
+        "baseline": 653.2576444096452,
+        "gap": -0.0726,
+        "runtime": 3.1996,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_42",
+        "cost": 554.3025786518856,
+        "baseline": 623.7523938828238,
+        "gap": -0.1113,
+        "runtime": 3.154,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_43",
+        "cost": 626.413114699492,
+        "baseline": 650.9792698965288,
+        "gap": -0.0377,
+        "runtime": 3.0676,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_44",
+        "cost": 613.4835130550501,
+        "baseline": 721.6791560470344,
+        "gap": -0.1499,
+        "runtime": 3.8189,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_45",
+        "cost": 601.2939645451634,
+        "baseline": 671.7137059378242,
+        "gap": -0.1048,
+        "runtime": 2.7871,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_46",
+        "cost": 622.252322564277,
+        "baseline": 626.3806230203741,
+        "gap": -0.0066,
+        "runtime": 3.9531,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_47",
+        "cost": 646.1684517903525,
+        "baseline": 749.650511360515,
+        "gap": -0.138,
+        "runtime": 3.7235,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_48",
+        "cost": 636.257150290499,
+        "baseline": 657.3857412379373,
+        "gap": -0.0321,
+        "runtime": 2.8341,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_49",
+        "cost": 590.8235617959356,
+        "baseline": 683.3372857283924,
+        "gap": -0.1354,
+        "runtime": 3.2495,
+        "error": null
+      }
+    ],
+    "metrics_history": [
+      {
+        "generation": 2,
+        "best_fitness": 1.004785817090434,
+        "mean_fitness": 0.7785053560328093,
+        "mean_similarity": 0.6329548823980939,
+        "mutation_rate": 0.4,
+        "temperature": 0.56875
+      }
+    ],
+    "seeds": {
+      "experiment_seed": 42,
+      "model_seed": 1261,
+      "numpy_seed": 42,
+      "instances_seed": 42
+    },
+    "system_info": {
+      "python_version": "3.10.11",
+      "os": "Windows 10",
+      "cpu": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+      "cores": 18,
+      "git_commit": "aee50d835c6259955808464c52b8121de7facc2b",
+      "timestamp": "2026-05-29T09:42:41Z"
+    }
+  },
+  "llama-3.3-70b": {
+    "model": "LLaMA 3.3 70B",
+    "best_fitness": 1.0173,
+    "avg_gap_pct": -12.63,
+    "avg_runtime_s": 4.461,
+    "api_calls": 14,
+    "fitness_history": [
+      1.001886297658561,
+      1.0295188983122145,
+      1.0346787459773399,
+      1.0346787459773399
+    ],
+    "best_code": "def heuristic(problem_instance):\n    n = problem_instance[\"n_cities\"]\n    dist = problem_instance[\"dist_matrix\"]\n    tour = [0]\n    unvisited = set(range(1, n))\n    while unvisited:\n        current = tour[-1]\n        next_city = min(unvisited, key=lambda c: dist[current][c])\n        tour.append(next_city)\n        unvisited.remove(next_city)\n    cost = sum(dist[tour[i]][tour[i+1]] for i in range(n-1)) + dist[tour[-1]][tour[0]]\n    for _ in range(10):  # reduced number of iterations\n        improved = False\n        for i in range(len(tour) - 1):\n            for j in range(i + 1, len(tour)):\n                new_tour = tour[:i] + list(reversed(tour[i:j])) + tour[j:]\n                new_cost = sum(dist[new_tour[k]][new_tour[k+1]] for k in range(len(new_tour) - 1)) + dist[new_tour[-1]][new_tour[0]]\n                if new_cost < cost:\n                    tour = new_tour\n                    cost = new_cost\n                    improved = True\n        if not improved:\n            break\n    return {\"tour\": tour, \"cost\": cost}",
+    "instance_evals": [
+      {
+        "instance_id": "tsp_50_0",
+        "cost": 568.5786850958418,
+        "baseline": 636.7614012904136,
+        "gap": -0.1071,
+        "runtime": 4.0781,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_1",
+        "cost": 558.4568409743019,
+        "baseline": 667.241210295906,
+        "gap": -0.163,
+        "runtime": 3.7171,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_2",
+        "cost": 578.4170378698764,
+        "baseline": 621.7332032698043,
+        "gap": -0.0697,
+        "runtime": 3.7083,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_3",
+        "cost": 590.0422337703794,
+        "baseline": 680.8135572197727,
+        "gap": -0.1333,
+        "runtime": 5.2489,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_4",
+        "cost": 621.9939694250536,
+        "baseline": 796.7443242945358,
+        "gap": -0.2193,
+        "runtime": 4.5952,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_5",
+        "cost": 579.2360326810505,
+        "baseline": 652.7974126000922,
+        "gap": -0.1127,
+        "runtime": 4.6181,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_6",
+        "cost": 607.2711838282528,
+        "baseline": 643.6616549115923,
+        "gap": -0.0565,
+        "runtime": 4.738,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_7",
+        "cost": 626.4654523819204,
+        "baseline": 657.8425843489629,
+        "gap": -0.0477,
+        "runtime": 4.8639,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_8",
+        "cost": 626.3770620656869,
+        "baseline": 692.720617719813,
+        "gap": -0.0958,
+        "runtime": 4.4406,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_9",
+        "cost": 565.2968979137999,
+        "baseline": 613.5108584294403,
+        "gap": -0.0786,
+        "runtime": 3.88,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_10",
+        "cost": 534.6977517366449,
+        "baseline": 568.5387223317051,
+        "gap": -0.0595,
+        "runtime": 3.724,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_11",
+        "cost": 585.798758975043,
+        "baseline": 660.2204635188243,
+        "gap": -0.1127,
+        "runtime": 4.7516,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_12",
+        "cost": 635.3271855607329,
+        "baseline": 758.1469673367103,
+        "gap": -0.162,
+        "runtime": 4.7521,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_13",
+        "cost": 582.967221950294,
+        "baseline": 682.756857099834,
+        "gap": -0.1462,
+        "runtime": 5.9299,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_14",
+        "cost": 612.3029492225543,
+        "baseline": 700.4436194874152,
+        "gap": -0.1258,
+        "runtime": 6.1393,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_15",
+        "cost": 580.266531585758,
+        "baseline": 769.8550938338797,
+        "gap": -0.2463,
+        "runtime": 5.9177,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_16",
+        "cost": 628.0553717038982,
+        "baseline": 716.3962354682793,
+        "gap": -0.1233,
+        "runtime": 5.3086,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_17",
+        "cost": 642.1356863243495,
+        "baseline": 697.4069949192278,
+        "gap": -0.0793,
+        "runtime": 5.8138,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_18",
+        "cost": 637.8554762304865,
+        "baseline": 761.1049178334797,
+        "gap": -0.1619,
+        "runtime": 5.5557,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_19",
+        "cost": 623.9018216848153,
+        "baseline": 728.68229038542,
+        "gap": -0.1438,
+        "runtime": 5.2492,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_20",
+        "cost": 570.1529139384387,
+        "baseline": 606.6290255764338,
+        "gap": -0.0601,
+        "runtime": 4.8178,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_21",
+        "cost": 569.4528708520833,
+        "baseline": 764.96039947956,
+        "gap": -0.2556,
+        "runtime": 5.3378,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_22",
+        "cost": 552.6123692793325,
+        "baseline": 603.4463390072337,
+        "gap": -0.0842,
+        "runtime": 5.7103,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_23",
+        "cost": 608.4270148561208,
+        "baseline": 702.7418946961868,
+        "gap": -0.1342,
+        "runtime": 5.8852,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_24",
+        "cost": 579.8006417333481,
+        "baseline": 614.6052361282219,
+        "gap": -0.0566,
+        "runtime": 4.4017,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_25",
+        "cost": 597.1058879157389,
+        "baseline": 668.6352566424412,
+        "gap": -0.107,
+        "runtime": 4.6052,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_26",
+        "cost": 566.7057233290906,
+        "baseline": 670.7019723474398,
+        "gap": -0.1551,
+        "runtime": 3.7257,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_27",
+        "cost": 600.521670015806,
+        "baseline": 667.7511409650506,
+        "gap": -0.1007,
+        "runtime": 3.8143,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_28",
+        "cost": 635.2917425397505,
+        "baseline": 743.1284741330015,
+        "gap": -0.1451,
+        "runtime": 3.7757,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_29",
+        "cost": 609.8099981966775,
+        "baseline": 726.7085629003509,
+        "gap": -0.1609,
+        "runtime": 3.7008,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_30",
+        "cost": 634.4373150883071,
+        "baseline": 694.2511692189754,
+        "gap": -0.0862,
+        "runtime": 3.6355,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_31",
+        "cost": 636.7952832466697,
+        "baseline": 740.1814987966691,
+        "gap": -0.1397,
+        "runtime": 3.6601,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_32",
+        "cost": 611.9957216813378,
+        "baseline": 715.0625180336837,
+        "gap": -0.1441,
+        "runtime": 3.8281,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_33",
+        "cost": 643.1420776130378,
+        "baseline": 796.8911951570983,
+        "gap": -0.1929,
+        "runtime": 3.7935,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_34",
+        "cost": 592.4255481898548,
+        "baseline": 746.9364356549866,
+        "gap": -0.2069,
+        "runtime": 4.1106,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_35",
+        "cost": 638.6293688192872,
+        "baseline": 738.4625404825164,
+        "gap": -0.1352,
+        "runtime": 4.2069,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_36",
+        "cost": 553.517037376632,
+        "baseline": 702.5015674724406,
+        "gap": -0.2121,
+        "runtime": 4.7438,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_37",
+        "cost": 544.4755197113766,
+        "baseline": 572.8022044137426,
+        "gap": -0.0495,
+        "runtime": 4.21,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_38",
+        "cost": 640.0937048136127,
+        "baseline": 761.7478882006073,
+        "gap": -0.1597,
+        "runtime": 4.2706,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_39",
+        "cost": 604.5434904552122,
+        "baseline": 682.6289112611378,
+        "gap": -0.1144,
+        "runtime": 4.1482,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_40",
+        "cost": 568.3681793769815,
+        "baseline": 688.8978931058144,
+        "gap": -0.175,
+        "runtime": 4.1859,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_41",
+        "cost": 592.4916039175646,
+        "baseline": 653.2576444096452,
+        "gap": -0.093,
+        "runtime": 4.2483,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_42",
+        "cost": 532.2765091559663,
+        "baseline": 623.7523938828238,
+        "gap": -0.1467,
+        "runtime": 3.853,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_43",
+        "cost": 598.9976040564513,
+        "baseline": 650.9792698965288,
+        "gap": -0.0799,
+        "runtime": 3.7284,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_44",
+        "cost": 623.1268991935328,
+        "baseline": 721.6791560470344,
+        "gap": -0.1366,
+        "runtime": 3.7284,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_45",
+        "cost": 579.6093690128308,
+        "baseline": 671.7137059378242,
+        "gap": -0.1371,
+        "runtime": 3.8146,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_46",
+        "cost": 590.6662022364605,
+        "baseline": 626.3806230203741,
+        "gap": -0.057,
+        "runtime": 4.3088,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_47",
+        "cost": 626.8770696338875,
+        "baseline": 749.650511360515,
+        "gap": -0.1638,
+        "runtime": 4.0696,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_48",
+        "cost": 611.7053280533277,
+        "baseline": 657.3857412379373,
+        "gap": -0.0695,
+        "runtime": 3.7991,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_49",
+        "cost": 607.2940488280653,
+        "baseline": 683.3372857283924,
+        "gap": -0.1113,
+        "runtime": 3.9231,
+        "error": null
+      }
+    ],
+    "metrics_history": [
+      {
+        "generation": 2,
+        "best_fitness": 1.0346787459773399,
+        "mean_fitness": 0.9444147373409792,
+        "mean_similarity": 0.7772650122403763,
+        "mutation_rate": 0.3798840484338736,
+        "temperature": 0.56875
+      },
+      {
+        "generation": 3,
+        "best_fitness": 1.0346787459773399,
+        "mean_fitness": 0.6480920559985769,
+        "mean_similarity": 0.7790471643579515,
+        "mutation_rate": 0.4,
+        "temperature": 0.5281250000000001
+      }
+    ],
+    "seeds": {
+      "experiment_seed": 42,
+      "model_seed": 1000,
+      "numpy_seed": 42,
+      "instances_seed": 42
+    },
+    "system_info": {
+      "python_version": "3.10.11",
+      "os": "Windows 10",
+      "cpu": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+      "cores": 18,
+      "git_commit": "aee50d835c6259955808464c52b8121de7facc2b",
+      "timestamp": "2026-05-29T09:42:41Z"
+    }
+  },
+  "llama-3.1-8b": {
+    "model": "LLaMA 3.1 8B",
+    "best_fitness": 0.9736,
+    "avg_gap_pct": -3.07,
+    "avg_runtime_s": 2.676,
+    "api_calls": 22,
+    "fitness_history": [
+      0.521261759435606,
+      0.97872858693001
+    ],
+    "best_code": "def heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance[\"n_cities\"]\n    dist = problem_instance[\"dist_matrix\"]\n    tour = [0]\n    unvisited = set(range(1, n))\n    for _ in range(n-1):\n        current = tour[-1]\n        nearest = min(unvisited, key=lambda c: dist[current][c])\n        tour.append(nearest)\n        unvisited.remove(nearest)\n    cost = sum(dist[tour[i]][tour[i+1]] for i in range(n-1)) + dist[tour[-1]][tour[0]]\n\n    best_cost = cost\n    best_tour = tour.copy()\n\n    for i in range(1, n - 1):\n        for j in range(i + 1, n):\n            new_tour = tour[:i] + list(reversed(tour[i:j])) + tour[j:]\n            new_cost = sum(dist[new_tour[k]][new_tour[k+1]] for k in range(n-1)) + dist[new_tour[-1]][new_tour[0]]\n            if new_cost < best_cost:\n                best_cost = new_cost\n                best_tour = new_tour\n\n    return {\"tour\": best_tour, \"cost\": best_cost}",
+    "instance_evals": [
+      {
+        "instance_id": "tsp_50_0",
+        "cost": 614.5559284877637,
+        "baseline": 636.7614012904136,
+        "gap": -0.0349,
+        "runtime": 2.7605,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_1",
+        "cost": 639.3367763748946,
+        "baseline": 667.241210295906,
+        "gap": -0.0418,
+        "runtime": 2.8371,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_2",
+        "cost": 616.2165180370768,
+        "baseline": 621.7332032698043,
+        "gap": -0.0089,
+        "runtime": 2.3358,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_3",
+        "cost": 651.1416641715468,
+        "baseline": 680.8135572197727,
+        "gap": -0.0436,
+        "runtime": 2.3242,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_4",
+        "cost": 767.8771672028149,
+        "baseline": 796.7443242945358,
+        "gap": -0.0362,
+        "runtime": 2.3426,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_5",
+        "cost": 637.8800102143332,
+        "baseline": 652.7974126000922,
+        "gap": -0.0229,
+        "runtime": 2.3232,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_6",
+        "cost": 632.1093371677393,
+        "baseline": 643.6616549115923,
+        "gap": -0.0179,
+        "runtime": 2.304,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_7",
+        "cost": 652.4423569813634,
+        "baseline": 657.8425843489629,
+        "gap": -0.0082,
+        "runtime": 2.2778,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_8",
+        "cost": 671.3535571008255,
+        "baseline": 692.720617719813,
+        "gap": -0.0308,
+        "runtime": 2.4981,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_9",
+        "cost": 602.8538950409151,
+        "baseline": 613.5108584294403,
+        "gap": -0.0174,
+        "runtime": 2.458,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_10",
+        "cost": 544.2961034154018,
+        "baseline": 568.5387223317051,
+        "gap": -0.0426,
+        "runtime": 2.6156,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_11",
+        "cost": 633.9069062223429,
+        "baseline": 660.2204635188243,
+        "gap": -0.0399,
+        "runtime": 2.5437,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_12",
+        "cost": 730.3691100724504,
+        "baseline": 758.1469673367103,
+        "gap": -0.0366,
+        "runtime": 2.526,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_13",
+        "cost": 673.5374264422722,
+        "baseline": 682.756857099834,
+        "gap": -0.0135,
+        "runtime": 2.4437,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_14",
+        "cost": 691.4453039019318,
+        "baseline": 700.4436194874152,
+        "gap": -0.0128,
+        "runtime": 2.6485,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_15",
+        "cost": 746.5615602144459,
+        "baseline": 769.8550938338797,
+        "gap": -0.0303,
+        "runtime": 2.5758,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_16",
+        "cost": 697.9122767125561,
+        "baseline": 716.3962354682793,
+        "gap": -0.0258,
+        "runtime": 2.8291,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_17",
+        "cost": 677.6524278041078,
+        "baseline": 697.4069949192278,
+        "gap": -0.0283,
+        "runtime": 2.7069,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_18",
+        "cost": 746.4603771349616,
+        "baseline": 761.1049178334797,
+        "gap": -0.0192,
+        "runtime": 2.3703,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_19",
+        "cost": 700.066091791656,
+        "baseline": 728.68229038542,
+        "gap": -0.0393,
+        "runtime": 2.4082,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_20",
+        "cost": 582.1137375395854,
+        "baseline": 606.6290255764338,
+        "gap": -0.0404,
+        "runtime": 2.6377,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_21",
+        "cost": 725.5113805439985,
+        "baseline": 764.96039947956,
+        "gap": -0.0516,
+        "runtime": 2.5075,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_22",
+        "cost": 575.7168848707927,
+        "baseline": 603.4463390072337,
+        "gap": -0.046,
+        "runtime": 2.599,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_23",
+        "cost": 680.3195052250378,
+        "baseline": 702.7418946961868,
+        "gap": -0.0319,
+        "runtime": 2.7088,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_24",
+        "cost": 607.2545983721103,
+        "baseline": 614.6052361282219,
+        "gap": -0.012,
+        "runtime": 2.3435,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_25",
+        "cost": 645.1707672788747,
+        "baseline": 668.6352566424412,
+        "gap": -0.0351,
+        "runtime": 2.3464,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_26",
+        "cost": 654.7010300926356,
+        "baseline": 670.7019723474398,
+        "gap": -0.0239,
+        "runtime": 2.7747,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_27",
+        "cost": 652.1110690240005,
+        "baseline": 667.7511409650506,
+        "gap": -0.0234,
+        "runtime": 3.5101,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_28",
+        "cost": 723.5340300904014,
+        "baseline": 743.1284741330015,
+        "gap": -0.0264,
+        "runtime": 3.723,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_29",
+        "cost": 710.904279328938,
+        "baseline": 726.7085629003509,
+        "gap": -0.0217,
+        "runtime": 3.1388,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_30",
+        "cost": 675.8705213186785,
+        "baseline": 694.2511692189754,
+        "gap": -0.0265,
+        "runtime": 3.2271,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_31",
+        "cost": 723.2122380079704,
+        "baseline": 740.1814987966691,
+        "gap": -0.0229,
+        "runtime": 2.8519,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_32",
+        "cost": 689.0451686976854,
+        "baseline": 715.0625180336837,
+        "gap": -0.0364,
+        "runtime": 2.7424,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_33",
+        "cost": 760.4150360978065,
+        "baseline": 796.8911951570983,
+        "gap": -0.0458,
+        "runtime": 2.6888,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_34",
+        "cost": 710.9033405373032,
+        "baseline": 746.9364356549866,
+        "gap": -0.0482,
+        "runtime": 2.8251,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_35",
+        "cost": 718.1160113044758,
+        "baseline": 738.4625404825164,
+        "gap": -0.0276,
+        "runtime": 2.8395,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_36",
+        "cost": 678.0366377931975,
+        "baseline": 702.5015674724406,
+        "gap": -0.0348,
+        "runtime": 2.7825,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_37",
+        "cost": 562.421578028973,
+        "baseline": 572.8022044137426,
+        "gap": -0.0181,
+        "runtime": 2.638,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_38",
+        "cost": 730.4646013836334,
+        "baseline": 761.7478882006073,
+        "gap": -0.0411,
+        "runtime": 2.4886,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_39",
+        "cost": 669.7961159827396,
+        "baseline": 682.6289112611378,
+        "gap": -0.0188,
+        "runtime": 2.5074,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_40",
+        "cost": 651.7464213758961,
+        "baseline": 688.8978931058144,
+        "gap": -0.0539,
+        "runtime": 2.6498,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_41",
+        "cost": 637.1665329575582,
+        "baseline": 653.2576444096452,
+        "gap": -0.0246,
+        "runtime": 2.6448,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_42",
+        "cost": 601.3293781734801,
+        "baseline": 623.7523938828238,
+        "gap": -0.0359,
+        "runtime": 3.4402,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_43",
+        "cost": 642.6731715943005,
+        "baseline": 650.9792698965288,
+        "gap": -0.0128,
+        "runtime": 2.7274,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_44",
+        "cost": 707.686085122963,
+        "baseline": 721.6791560470344,
+        "gap": -0.0194,
+        "runtime": 2.6612,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_45",
+        "cost": 629.046617461347,
+        "baseline": 671.7137059378242,
+        "gap": -0.0635,
+        "runtime": 2.5775,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_46",
+        "cost": 616.0900634999292,
+        "baseline": 626.3806230203741,
+        "gap": -0.0164,
+        "runtime": 2.7718,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_47",
+        "cost": 727.0798455612988,
+        "baseline": 749.650511360515,
+        "gap": -0.0301,
+        "runtime": 2.7823,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_48",
+        "cost": 627.4443359892732,
+        "baseline": 657.3857412379373,
+        "gap": -0.0455,
+        "runtime": 2.6879,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_49",
+        "cost": 649.8643632690929,
+        "baseline": 683.3372857283924,
+        "gap": -0.049,
+        "runtime": 2.8408,
+        "error": null
+      }
+    ],
+    "metrics_history": [
+      {
+        "generation": 0,
+        "best_fitness": 0.521261759435606,
+        "mean_fitness": 0.521261759435606,
+        "mean_similarity": 0.4629026390188803,
+        "mutation_rate": 0.4,
+        "temperature": 0.65
+      },
+      {
+        "generation": 1,
+        "best_fitness": 0.97872858693001,
+        "mean_fitness": 0.6355273696569493,
+        "mean_similarity": 0.5843605619218285,
+        "mutation_rate": 0.1,
+        "temperature": 0.609375
+      }
+    ],
+    "seeds": {
+      "experiment_seed": 42,
+      "model_seed": 951,
+      "numpy_seed": 42,
+      "instances_seed": 42
+    },
+    "system_info": {
+      "python_version": "3.10.11",
+      "os": "Windows 10",
+      "cpu": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+      "cores": 18,
+      "git_commit": "aee50d835c6259955808464c52b8121de7facc2b",
+      "timestamp": "2026-05-29T09:42:41Z"
+    }
+  },
+  "gpt-oss-120b": {
+    "model": "GPT-OSS 120B",
+    "best_fitness": 1.0571,
+    "avg_gap_pct": -15.15,
+    "avg_runtime_s": 3.031,
+    "api_calls": 22,
+    "fitness_history": [
+      1.0588271487617378,
+      1.0663388470798956
+    ],
+    "best_code": "import random\n\ndef heuristic(problem_instance):\n    n = problem_instance[\"n_cities\"]\n    dist = problem_instance[\"dist_matrix\"]\n    if n <= 1:\n        return {\"tour\": list(range(n)), \"cost\": 0.0}\n    samples = max(10, n // 5)\n    best_tour = None\n    best_cost = float('inf')\n    base = list(range(n))\n    for _ in range(samples):\n        tour = base[:]\n        random.shuffle(tour)\n        improved = True\n        while improved:\n            improved = False\n            for i in range(1, n - 1):\n                a = tour[i - 1]\n                b = tour[i]\n                for k in range(i + 1, n):\n                    c = tour[k]\n                    d = tour[(k + 1) % n]\n                    delta = dist[a][c] + dist[b][d] - dist[a][b] - dist[c][d]\n                    if delta < -1e-12:\n                        tour[i:k + 1] = reversed(tour[i:k + 1])\n                        improved = True\n        cost = sum(dist[tour[i]][tour[(i + 1) % n]] for i in range(n))\n        if cost < best_cost:\n            best_cost = cost\n            best_tour = tour[:]\n    if best_tour is None:\n        tour = [0]\n        unvisited = set(range(1, n))\n        while unvisited:\n            cur = tour[-1]\n            nxt = min(unvisited, key=lambda c: dist[cur][c])\n            tour.append(nxt)\n            unvisited.remove(nxt)\n        best_tour = tour\n        best_cost = sum(dist[tour[i]][tour[(i + 1) % n]] for i in range(n))\n    return {\"tour\": best_tour, \"cost\": float(best_cost)}",
+    "instance_evals": [
+      {
+        "instance_id": "tsp_50_0",
+        "cost": 560.5462346238463,
+        "baseline": 636.7614012904136,
+        "gap": -0.1197,
+        "runtime": 2.6289,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_1",
+        "cost": 561.4015275343136,
+        "baseline": 667.241210295906,
+        "gap": -0.1586,
+        "runtime": 2.6596,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_2",
+        "cost": 559.5209484271106,
+        "baseline": 621.7332032698043,
+        "gap": -0.1001,
+        "runtime": 2.6049,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_3",
+        "cost": 552.1302319903172,
+        "baseline": 680.8135572197727,
+        "gap": -0.189,
+        "runtime": 2.5193,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_4",
+        "cost": 597.6395672310043,
+        "baseline": 796.7443242945358,
+        "gap": -0.2499,
+        "runtime": 2.7056,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_5",
+        "cost": 561.3908246522863,
+        "baseline": 652.7974126000922,
+        "gap": -0.14,
+        "runtime": 3.2936,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_6",
+        "cost": 551.9839916605799,
+        "baseline": 643.6616549115923,
+        "gap": -0.1424,
+        "runtime": 3.6318,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_7",
+        "cost": 558.2584982642065,
+        "baseline": 657.8425843489629,
+        "gap": -0.1514,
+        "runtime": 2.5876,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_8",
+        "cost": 615.19044772,
+        "baseline": 692.720617719813,
+        "gap": -0.1119,
+        "runtime": 2.5016,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_9",
+        "cost": 579.4031238995549,
+        "baseline": 613.5108584294403,
+        "gap": -0.0556,
+        "runtime": 2.9248,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_10",
+        "cost": 514.6843879078957,
+        "baseline": 568.5387223317051,
+        "gap": -0.0947,
+        "runtime": 3.1772,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_11",
+        "cost": 540.8059863310449,
+        "baseline": 660.2204635188243,
+        "gap": -0.1809,
+        "runtime": 3.181,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_12",
+        "cost": 584.5123889603744,
+        "baseline": 758.1469673367103,
+        "gap": -0.229,
+        "runtime": 3.0464,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_13",
+        "cost": 580.3040328845176,
+        "baseline": 682.756857099834,
+        "gap": -0.1501,
+        "runtime": 3.0741,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_14",
+        "cost": 611.3367142815985,
+        "baseline": 700.4436194874152,
+        "gap": -0.1272,
+        "runtime": 2.8065,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_15",
+        "cost": 564.8390201338301,
+        "baseline": 769.8550938338797,
+        "gap": -0.2663,
+        "runtime": 4.0575,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_16",
+        "cost": 583.2838208118878,
+        "baseline": 716.3962354682793,
+        "gap": -0.1858,
+        "runtime": 2.806,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_17",
+        "cost": 603.2420740497249,
+        "baseline": 697.4069949192278,
+        "gap": -0.135,
+        "runtime": 2.8165,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_18",
+        "cost": 623.4545468477,
+        "baseline": 761.1049178334797,
+        "gap": -0.1809,
+        "runtime": 3.0137,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_19",
+        "cost": 645.625617514116,
+        "baseline": 728.68229038542,
+        "gap": -0.114,
+        "runtime": 2.8725,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_20",
+        "cost": 568.4289314751475,
+        "baseline": 606.6290255764338,
+        "gap": -0.063,
+        "runtime": 2.9767,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_21",
+        "cost": 560.1039324712663,
+        "baseline": 764.96039947956,
+        "gap": -0.2678,
+        "runtime": 2.885,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_22",
+        "cost": 533.7975676499127,
+        "baseline": 603.4463390072337,
+        "gap": -0.1154,
+        "runtime": 3.1626,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_23",
+        "cost": 617.67504191179,
+        "baseline": 702.7418946961868,
+        "gap": -0.121,
+        "runtime": 3.0914,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_24",
+        "cost": 568.6552603756396,
+        "baseline": 614.6052361282219,
+        "gap": -0.0748,
+        "runtime": 2.8061,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_25",
+        "cost": 602.5500137393524,
+        "baseline": 668.6352566424412,
+        "gap": -0.0988,
+        "runtime": 3.9039,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_26",
+        "cost": 549.5366601065153,
+        "baseline": 670.7019723474398,
+        "gap": -0.1807,
+        "runtime": 3.3919,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_27",
+        "cost": 593.7748093119225,
+        "baseline": 667.7511409650506,
+        "gap": -0.1108,
+        "runtime": 2.942,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_28",
+        "cost": 634.446833755062,
+        "baseline": 743.1284741330015,
+        "gap": -0.1462,
+        "runtime": 3.319,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_29",
+        "cost": 628.7035661220297,
+        "baseline": 726.7085629003509,
+        "gap": -0.1349,
+        "runtime": 3.1325,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_30",
+        "cost": 597.7637098138711,
+        "baseline": 694.2511692189754,
+        "gap": -0.139,
+        "runtime": 2.9431,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_31",
+        "cost": 578.4429790594847,
+        "baseline": 740.1814987966691,
+        "gap": -0.2185,
+        "runtime": 3.1735,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_32",
+        "cost": 591.3672431706988,
+        "baseline": 715.0625180336837,
+        "gap": -0.173,
+        "runtime": 3.0624,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_33",
+        "cost": 629.9811473707719,
+        "baseline": 796.8911951570983,
+        "gap": -0.2095,
+        "runtime": 2.8337,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_34",
+        "cost": 580.4518806004561,
+        "baseline": 746.9364356549866,
+        "gap": -0.2229,
+        "runtime": 2.7043,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_35",
+        "cost": 622.031647341228,
+        "baseline": 738.4625404825164,
+        "gap": -0.1577,
+        "runtime": 2.8968,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_36",
+        "cost": 549.8345238206157,
+        "baseline": 702.5015674724406,
+        "gap": -0.2173,
+        "runtime": 3.0699,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_37",
+        "cost": 547.8494944113413,
+        "baseline": 572.8022044137426,
+        "gap": -0.0436,
+        "runtime": 3.4337,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_38",
+        "cost": 612.7030018434042,
+        "baseline": 761.7478882006073,
+        "gap": -0.1957,
+        "runtime": 2.8885,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_39",
+        "cost": 567.8352120956182,
+        "baseline": 682.6289112611378,
+        "gap": -0.1682,
+        "runtime": 3.078,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_40",
+        "cost": 552.8811146073612,
+        "baseline": 688.8978931058144,
+        "gap": -0.1974,
+        "runtime": 2.9248,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_41",
+        "cost": 576.3224517357339,
+        "baseline": 653.2576444096452,
+        "gap": -0.1178,
+        "runtime": 2.826,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_42",
+        "cost": 532.2765091559666,
+        "baseline": 623.7523938828238,
+        "gap": -0.1467,
+        "runtime": 3.1833,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_43",
+        "cost": 562.1685020394116,
+        "baseline": 650.9792698965288,
+        "gap": -0.1364,
+        "runtime": 2.9336,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_44",
+        "cost": 583.7295699904284,
+        "baseline": 721.6791560470344,
+        "gap": -0.1912,
+        "runtime": 3.1299,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_45",
+        "cost": 564.5734547378955,
+        "baseline": 671.7137059378242,
+        "gap": -0.1595,
+        "runtime": 4.8573,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_46",
+        "cost": 588.7762589677936,
+        "baseline": 626.3806230203741,
+        "gap": -0.06,
+        "runtime": 2.9479,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_47",
+        "cost": 619.0039037902799,
+        "baseline": 749.650511360515,
+        "gap": -0.1743,
+        "runtime": 2.7938,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_48",
+        "cost": 589.6288832041416,
+        "baseline": 657.3857412379373,
+        "gap": -0.1031,
+        "runtime": 2.5646,
+        "error": null
+      },
+      {
+        "instance_id": "tsp_50_49",
+        "cost": 584.0067285906268,
+        "baseline": 683.3372857283924,
+        "gap": -0.1454,
+        "runtime": 2.7982,
+        "error": null
+      }
+    ],
+    "metrics_history": [
+      {
+        "generation": 0,
+        "best_fitness": 1.0588271487617378,
+        "mean_fitness": 1.0494846921053607,
+        "mean_similarity": 0.5557028558570415,
+        "mutation_rate": 0.4,
+        "temperature": 0.65
+      },
+      {
+        "generation": 1,
+        "best_fitness": 1.0663388470798956,
+        "mean_fitness": 0.8997627841750719,
+        "mean_similarity": 0.6030517258845638,
+        "mutation_rate": 0.3710539849166805,
+        "temperature": 0.609375
+      }
+    ],
+    "seeds": {
+      "experiment_seed": 42,
+      "model_seed": 1049,
+      "numpy_seed": 42,
+      "instances_seed": 42
+    },
+    "system_info": {
+      "python_version": "3.10.11",
+      "os": "Windows 10",
+      "cpu": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+      "cores": 18,
+      "git_commit": "aee50d835c6259955808464c52b8121de7facc2b",
+      "timestamp": "2026-05-29T09:42:41Z"
+    }
+  }
+}

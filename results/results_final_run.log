@@ -1,0 +1,289 @@
+LLM-Heuristic Framework - Running Mode: FINAL
+============================================================
+Loaded 50 TSP instances with 50 cities each
+
+
+============================================================
+  MODEL: LLaMA 3.3 70B
+============================================================
+🧬 [Stochastic Fitness Approximation] Searching on a deterministic random subset of 15 instances...
+
+============================================================
+🟢 [RESUMING EVOLUTION] Loaded checkpoint successfully!
+   Resuming LLaMA 3.3 70B from Generation 2...
+   Loaded Population: 8 candidates
+   Loaded Best History: [1.0019, 1.0295]
+============================================================
+
+  Gen 2 | Best=1.0347 | Avg=0.9444
+    [Adaptive Rates] Elite: 1 | Mut (38%): 3 (temp=0.57) | Cross (32%): 2 (temp=0.57) | Novel: 2
+    [Diversity Maintenance] Mean Code Similarity: 0.777
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      [DEBUG EVAL FAIL] Exec/Syntax Error: closing parenthesis ')' does not match opening parenthesis '[' (<string>, line 17). Code start: 'def heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisited = set(ra'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.3-70b-versatile output: 'def heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisited = set(ra'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.3-70b!
+💾 Checkpoint saved for Generation 3 at checkpoint_llama-3.3-70b.json
+  Gen 3 | Best=1.0347 | Avg=0.6481
+    [Adaptive Rates] Elite: 1 | Mut (40%): 3 (temp=0.53) | Cross (30%): 2 (temp=0.53) | Novel: 2
+    [Diversity Maintenance] Mean Code Similarity: 0.779
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n    unvisite'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.3-70b!
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.3-70b!
+💾 Checkpoint saved for Generation 4 at checkpoint_llama-3.3-70b.json
+  Converged after 4 generations.
+
+🏅 [Full Academic Evaluation] Evaluating the champion heuristic on all 50 instances...
+   Champion Fitness on all 50 instances: 1.0173
+  DONE | Fitness: 1.0173 | Gap: -12.63%
+🗑️ Cleaned up checkpoint: checkpoint_llama-3.3-70b.json (Run fully completed!)
+
+Results saved to results_final_run.json
+Plot saved to comparison_final_run.png
+
+============================================================
+  MODEL: LLaMA 3.1 8B
+============================================================
+🧬 [Stochastic Fitness Approximation] Searching on a deterministic random subset of 15 instances...
+  Generating 8 initial heuristics...
+    [1/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: 'import numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]\n  '
+fitness=0.5213
+    [2/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: 'def heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    initial_tour = [i for i in range('
+fitness=0.5213
+    [3/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: 'def heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    dp = [[float("inf")]*n for _ in r'
+fitness=0.5213
+    [4/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: 'def heuristic(problem_instance):\n    import numpy as np\n    import random\n\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matr'
+fitness=0.5213
+    [5/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+fitness=0.5213
+    [6/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+fitness=0.5213
+    [7/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+fitness=0.5213
+    [8/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+fitness=0.5213
+  Gen 0 | Best=0.5213 | Avg=0.5213
+    [Adaptive Rates] Elite: 1 | Mut (40%): 3 (temp=0.65) | Cross (30%): 2 (temp=0.65) | Novel: 2
+    [Diversity Maintenance] Mean Code Similarity: 0.463
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tou'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    initial_tour = [i for i'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    import numpy as np\n    import random\n    n = problem_instance["n_cities"]\n    dist = problem_instance["'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tours = []\n    num_samp'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: 'def heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tour = [0]'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+💾 Checkpoint saved for Generation 1 at checkpoint_llama-3.1-8b.json
+  Gen 1 | Best=0.9787 | Avg=0.6355
+    [Adaptive Rates] Elite: 1 | Mut (10%): 1 (temp=0.61) | Cross (60%): 4 (temp=0.61) | Novel: 2
+    [Diversity Maintenance] Mean Code Similarity: 0.584
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    '
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    import numpy as np\n    import random\n    n = problem_instance["n_cities"]\n    dist = problem_instance["'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    initial_tour = [i for i'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tou'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    '
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+💾 Checkpoint saved for Generation 2 at checkpoint_llama-3.1-8b.json
+
+🏅 [Full Academic Evaluation] Evaluating the champion heuristic on all 50 instances...
+   Champion Fitness on all 50 instances: 0.9736
+  DONE | Fitness: 0.9736 | Gap: -3.07%
+
+⏸️ [Micro-Batch Completed] Reached generation limit (2/8). Checkpoint preserved!
+
+Results saved to results_final_run.json
+Plot saved to comparison_final_run.png
+
+============================================================
+  MODEL: LLaMA 4 Scout
+============================================================
+🧬 [Stochastic Fitness Approximation] Searching on a deterministic random subset of 15 instances...
+
+============================================================
+🟢 [RESUMING EVOLUTION] Loaded checkpoint successfully!
+   Resuming LLaMA 4 Scout from Generation 2...
+   Loaded Population: 8 candidates
+   Loaded Best History: [0.9979, 1.0048]
+============================================================
+
+  Gen 2 | Best=1.0048 | Avg=0.7785
+    [Adaptive Rates] Elite: 1 | Mut (40%): 3 (temp=0.57) | Cross (30%): 2 (temp=0.57) | Novel: 2
+    [Diversity Maintenance] Mean Code Similarity: 0.633
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport numpy as np\nimport random\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_ma'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    tou'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport numpy as np\nimport random\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_ma'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport numpy as np\nimport random\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_ma'
+
+      [DEBUG RAW RESPONSE] First 150 chars of meta-llama/llama-4-scout-17b-16e-instruct output: '```python\nimport numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    \n  '
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-4-scout!
+💾 Checkpoint saved for Generation 3 at checkpoint_llama-4-scout.json
+  Converged after 3 generations.
+
+🏅 [Full Academic Evaluation] Evaluating the champion heuristic on all 50 instances...
+   Champion Fitness on all 50 instances: 1.0119
+  DONE | Fitness: 1.0119 | Gap: -9.72%
+🗑️ Cleaned up checkpoint: checkpoint_llama-4-scout.json (Run fully completed!)
+
+Results saved to results_final_run.json
+Plot saved to comparison_final_run.png
+
+============================================================
+  MODEL: GPT-OSS 120B
+============================================================
+🧬 [Stochastic Fitness Approximation] Searching on a deterministic random subset of 15 instances...
+  Generating 8 initial heuristics...
+    [1/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of openai/gpt-oss-120b output: 'def heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    # --- Gree'
+fitness=1.0557
+    [2/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of openai/gpt-oss-120b output: 'def heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= 1:\n        return {"tour"'
+fitness=1.0492
+    [3/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of openai/gpt-oss-120b output: 'import numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n == 0:\n  '
+fitness=1.0426
+    [4/8] generating... 
+      [DEBUG RAW RESPONSE] First 150 chars of openai/gpt-oss-120b output: 'import random\nimport numpy as np\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n   '
+fitness=1.0513
+    [5/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+fitness=1.0572
+    [6/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+fitness=1.0588
+    [7/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+fitness=1.0425
+    [8/8] generating... 
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+fitness=1.0385
+  Gen 0 | Best=1.0588 | Avg=1.0495
+    [Adaptive Rates] Elite: 1 | Mut (40%): 3 (temp=0.65) | Cross (30%): 2 (temp=0.65) | Novel: 2
+    [Diversity Maintenance] Mean Code Similarity: 0.556
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    '
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    '
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= 1:\n        retu'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= 1:\n        retu'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= 1:\n        retu'
+
+      [DEBUG RAW RESPONSE] First 150 chars of openai/gpt-oss-120b output: 'def heuristic(problem_instance):\n    import numpy as np\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    # ----- In'
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+💾 Checkpoint saved for Generation 1 at checkpoint_gpt-oss-120b.json
+  Gen 1 | Best=1.0663 | Avg=0.8998
+    [Adaptive Rates] Elite: 1 | Mut (37%): 2 (temp=0.61) | Cross (33%): 2 (temp=0.61) | Novel: 3
+    [Diversity Maintenance] Mean Code Similarity: 0.603
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport random\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= '
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for llama-3.1-8b!
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= 1:\n        retu'
+
+      [DEBUG RAW RESPONSE] First 150 chars of llama-3.1-8b-instant output: '```python\nimport random\n\ndef heuristic(problem_instance):\n    n = problem_instance["n_cities"]\n    dist = problem_instance["dist_matrix"]\n    if n <= '
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+
+      ⚡ [Cache Hit] Reused previous cached LLM response for gpt-oss-120b!
+💾 Checkpoint saved for Generation 2 at checkpoint_gpt-oss-120b.json
+
+🏅 [Full Academic Evaluation] Evaluating the champion heuristic on all 50 instances...
+   Champion Fitness on all 50 instances: 1.0571
+  DONE | Fitness: 1.0571 | Gap: -15.15%
+
+⏸️ [Micro-Batch Completed] Reached generation limit (2/8). Checkpoint preserved!
+
+Results saved to results_final_run.json
+Plot saved to comparison_final_run.png
+
+=================================================================
+MODEL                      FITNESS    GAP %   RUNTIME  API CALLS
+-----------------------------------------------------------------
+LLaMA 4 Scout                1.0119   -9.72%     3.081s          7
+LLaMA 3.3 70B                1.0173  -12.63%     4.461s         14
+LLaMA 3.1 8B                 0.9736   -3.07%     2.676s         22
+GPT-OSS 120B                 1.0571  -15.15%     3.031s         22
+=================================================================
+
+==================== AUTO-LATEX TABLE FOR RESEARCH PAPER ====================
+\begin{table}[h]
+\centering
+\caption{Performance Comparison of LLM-Heuristic Framework Across Models}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Model} & \textbf{Best Fitness} & \textbf{Avg Gap (\%)} & \textbf{Avg Runtime (s)} & \textbf{API Calls} \\ \hline
+LLaMA 4 Scout & 1.0119 & -9.72\% & 3.081s & 7 \\
+LLaMA 3.3 70B & 1.0173 & -12.63\% & 4.461s & 14 \\
+LLaMA 3.1 8B & 0.9736 & -3.07\% & 2.676s & 22 \\
+GPT-OSS 120B & 1.0571 & -15.15\% & 3.031s & 22 \\
+\hline
+\end{tabular}
+\label{tab:llm_heuristic_results}
+\end{table}
+=============================================================================
+
+
+Results saved to results_final_run.json
+Plot saved to comparison_final_run.png
+
+Experiment FINAL complete!
+Logs successfully written to results_final_run.log
+Results JSON saved to results_final_run.json
+Plots saved to comparison_final_run.png

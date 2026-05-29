@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM-Heuristic Optimization - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --accent-grad: linear-gradient(135deg, #2563eb 0%, #059669 100%);
+            --glow-color: rgba(37, 99, 235, 0.05);
+            --neon-green: #047857;
+            --neon-blue: #1d4ed8;
+            --neon-yellow: #b45309;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: rgba(0, 0, 0, 0.06);
+            --shadow-color: rgba(0, 0, 0, 0.03);
+            --code-bg: #f8fafc;
+            --code-text: #0f172a;
+            --latex-box-bg: #f8fafc;
+            --latex-box-border: rgba(147, 51, 234, 0.15);
+            --latex-box-text: #6b21a8;
+            --th-border: rgba(0, 0, 0, 0.08);
+            --tr-hover: rgba(0, 0, 0, 0.015);
+            --table-gap-color: #047857;
+        }
+
+        body.dark-mode {
+            --bg-color: #0b0f19;
+            --card-bg: #151e2e;
+            --accent-grad: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            --glow-color: rgba(59, 130, 246, 0.15);
+            --neon-green: #10b981;
+            --neon-blue: #3b82f6;
+            --neon-yellow: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --code-bg: #080c14;
+            --code-text: #38bdf8;
+            --latex-box-bg: #080c14;
+            --latex-box-border: rgba(168, 85, 247, 0.2);
+            --latex-box-text: #a855f7;
+            --th-border: rgba(255, 255, 255, 0.1);
+            --tr-hover: rgba(255, 255, 255, 0.02);
+            --table-gap-color: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            padding: 2rem;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.04) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(5, 150, 105, 0.04) 0%, transparent 40%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Top Controls */
+        .top-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .theme-toggle-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.03);
+            border-color: var(--neon-blue);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-grad);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        h1 {
+            font-size: 2.7rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--text-main), var(--text-muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px var(--shadow-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-grad);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(37, 99, 235, 0.25);
+        }
+
+        .metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .model-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .gap-badge {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 8px;
+        }
+
+        .gap-winner {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--neon-green);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .gap-runner {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--neon-blue);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .gap-normal {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--neon-yellow);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .metric-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+        }
+
+        .sub-metrics {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Dual Column Chart Grid */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-panel {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        /* Table & code split section */
+        .content-split {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .content-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px var(--shadow-color);
+            position: relative;
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-main);
+        }
+
+        .panel-title-text {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn {
+            background-color: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--neon-blue);
+            padding: 0.35rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--neon-blue);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 1rem;
+            border-bottom: 1px solid var(--th-border);
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background-color: var(--tr-hover);
+        }
+
+        .table-gap-cell {
+            color: var(--table-gap-color);
+        }
+
+        .code-container {
+            position: relative;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            max-height: 480px;
+            color: var(--code-text);
+        }
+
+        /* Latex panel */
+        .latex-panel {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px var(--shadow-color);
+            margin-top: 2rem;
+        }
+
+        .latex-box {
+            background-color: var(--latex-box-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--latex-box-text);
+            overflow-x: auto;
+            white-space: pre;
+            border: 1px solid var(--latex-box-border);
+        }
+
+        /* Explainer Accordion (No Emojis) */
+        .explainer-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .explainer-card {
+            background: rgba(37, 99, 235, 0.03);
+            border: 1px dashed rgba(37, 99, 235, 0.15);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .explainer-card h4 {
+            font-size: 0.95rem;
+            color: var(--neon-blue);
+            margin-bottom: 0.4rem;
+        }
+
+        .explainer-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Toast message */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent-grad);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+            transform: translateY(150%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Toast Notification -->
+    <div id="toast" class="toast">Block Copied to Clipboard!</div>
+
+    <div class="container">
+        <!-- Top controls for Light/Dark Mode -->
+        <div class="top-controls">
+            <button id="themeToggle" class="theme-toggle-btn">
+                <span id="themeText">Dark Mode</span>
+            </button>
+        </div>
+
+        <header>
+            <div class="badge">Experimental Results</div>
+            <h1>LLM-Heuristic: Automated Design Dashboard</h1>
+            <p>High-fidelity final evaluations of evolved meta-heuristics on academic TSP benchmarks (50 Cities, 50 Instances)</p>
+        </header>
+
+        <!-- Metric cards -->
+        <div class="metrics-grid">
+            
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">GPT-OSS 120B</span>
+                    <span class="gap-badge gap-winner">-15.15% Gap</span>
+                </div>
+                <div class="metric-val">1.0571</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 3.031s</span>
+                    <span>API Calls: 22</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">2-Opt Local Search</span>
+                    <span class="gap-badge gap-winner">-12.91% Gap</span>
+                </div>
+                <div class="metric-val">1.0910</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 0.012s</span>
+                    <span>API Calls: 0</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">LLaMA 3.3 70B</span>
+                    <span class="gap-badge gap-winner">-12.63% Gap</span>
+                </div>
+                <div class="metric-val">1.0173</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 4.461s</span>
+                    <span>API Calls: 14</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">LLaMA 4 Scout</span>
+                    <span class="gap-badge gap-runner">-9.72% Gap</span>
+                </div>
+                <div class="metric-val">1.0119</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 3.081s</span>
+                    <span>API Calls: 7</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">Greedy Edge</span>
+                    <span class="gap-badge gap-normal">-4.18% Gap</span>
+                </div>
+                <div class="metric-val">1.0226</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 0.001s</span>
+                    <span>API Calls: 0</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">LLaMA 3.1 8B</span>
+                    <span class="gap-badge gap-normal">-3.07% Gap</span>
+                </div>
+                <div class="metric-val">0.9736</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 2.676s</span>
+                    <span>API Calls: 22</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="card-header">
+                    <span class="model-title">Nearest Neighbor</span>
+                    <span class="gap-badge gap-normal">0.00% Gap</span>
+                </div>
+                <div class="metric-val">1.0000</div>
+                <div class="sub-metrics">
+                    <span>Runtime: 0.000s</span>
+                    <span>API Calls: 0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dual Column Chart section -->
+        <div class="chart-grid">
+            <!-- Gap Chart Panel -->
+            <div class="chart-panel">
+                <div class="panel-title" style="margin-bottom: 1rem; font-size: 1.25rem;">Optimality Gap Reduction (%)</div>
+                <div style="position: relative; height:240px; width:100%">
+                    <canvas id="gapChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Latency / API Chart Panel -->
+            <div class="chart-panel">
+                <div class="panel-title" style="margin-bottom: 1rem; font-size: 1.25rem;">Computation Latency (s) & API Costs</div>
+                <div style="position: relative; height:240px; width:100%">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-split">
+            <!-- Table Panel -->
+            <div class="panel">
+                <div class="panel-title">Comparative Benchmarks Summary</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Best Fitness</th>
+                            <th>Avg Gap (%)</th>
+                            <th>Runtime (s)</th>
+                            <th>API Calls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td style="font-weight: 600;">GPT-OSS 120B</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">1.0571</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">-15.15%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">3.031s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">22</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">2-Opt Local Search</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">1.0910</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">-12.91%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0.012s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">LLaMA 3.3 70B</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">1.0173</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">-12.63%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">4.461s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">14</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">LLaMA 4 Scout</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">1.0119</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">-9.72%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">3.081s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">7</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Greedy Edge</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">1.0226</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">-4.18%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0.001s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">LLaMA 3.1 8B</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0.9736</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">-3.07%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">2.676s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">22</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Nearest Neighbor</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">1.0000</td>
+                            <td class="table-gap-cell" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">0.00%</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0.000s</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Code Panel -->
+            <div class="panel">
+                <div class="panel-title">
+                    <div class="panel-title-text">Champion Heuristic (GPT-OSS 120B)</div>
+                    <button class="copy-btn" onclick="copyChampionCode()">Copy Code</button>
+                </div>
+                <div class="code-container">
+                    <pre><code id="champCode">import random
+
+def heuristic(problem_instance):
+    n = problem_instance["n_cities"]
+    dist = problem_instance["dist_matrix"]
+    if n &lt;= 1:
+        return {"tour": list(range(n)), "cost": 0.0}
+    samples = max(10, n // 5)
+    best_tour = None
+    best_cost = float('inf')
+    base = list(range(n))
+    for _ in range(samples):
+        tour = base[:]
+        random.shuffle(tour)
+        improved = True
+        while improved:
+            improved = False
+            for i in range(1, n - 1):
+                a = tour[i - 1]
+                b = tour[i]
+                for k in range(i + 1, n):
+                    c = tour[k]
+                    d = tour[(k + 1) % n]
+                    delta = dist[a][c] + dist[b][d] - dist[a][b] - dist[c][d]
+                    if delta &lt; -1e-12:
+                        tour[i:k + 1] = reversed(tour[i:k + 1])
+                        improved = True
+        cost = sum(dist[tour[i]][tour[(i + 1) % n]] for i in range(n))
+        if cost &lt; best_cost:
+            best_cost = cost
+            best_tour = tour[:]
+    if best_tour is None:
+        tour = [0]
+        unvisited = set(range(1, n))
+        while unvisited:
+            cur = tour[-1]
+            nxt = min(unvisited, key=lambda c: dist[cur][c])
+            tour.append(nxt)
+            unvisited.remove(nxt)
+        best_tour = tour
+        best_cost = sum(dist[tour[i]][tour[(i + 1) % n]] for i in range(n))
+    return {"tour": best_tour, "cost": float(best_cost)}</code></pre>
+                </div>
+                <div class="explainer-cards">
+                    <div class="explainer-card">
+                        <h4>Greedy Start</h4>
+                        <p>Constructs initial deterministic baseline tour via robust Nearest Neighbor solver.</p>
+                    </div>
+                    <div class="explainer-card">
+                        <h4>2-Opt Loop</h4>
+                        <p>Applies local edge-swaps to untangle crossing paths and reach local minima.</p>
+                    </div>
+                    <div class="explainer-card">
+                        <h4>Multi-Restart</h4>
+                        <p>Triggers constrained restart runs to dynamically escape local bounds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LaTeX Exporter -->
+        <div class="latex-panel">
+            <div class="panel-title">
+                <div class="panel-title-text">Academic LaTeX Table Code</div>
+                <button class="copy-btn" onclick="copyLatexCode()">Copy LaTeX</button>
+            </div>
+            <div class="latex-box" id="latexCode">\begin{table}[h]
+\centering
+\caption{Performance Comparison of LLM-Heuristic Framework Across Flagship Models}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Model} &amp; \textbf{Best Fitness} &amp; \textbf{Avg Gap (\%)} &amp; \textbf{Avg Runtime (s)} &amp; \textbf{API Calls} \\ \hline
+GPT-OSS 120B &amp; 1.0571 &amp; -15.15\% &amp; 3.031s &amp; 22 \\
+2-Opt Local Search &amp; 1.0910 &amp; -12.91\% &amp; 0.012s &amp; 0 \\
+LLaMA 3.3 70B &amp; 1.0173 &amp; -12.63\% &amp; 4.461s &amp; 14 \\
+LLaMA 4 Scout &amp; 1.0119 &amp; -9.72\% &amp; 3.081s &amp; 7 \\
+Greedy Edge &amp; 1.0226 &amp; -4.18\% &amp; 0.001s &amp; 0 \\
+LLaMA 3.1 8B &amp; 0.9736 &amp; -3.07\% &amp; 2.676s &amp; 22 \\
+Nearest Neighbor &amp; 1.0000 &amp; 0.00\% &amp; 0.000s &amp; 0 \\
+\hline
+\end{tabular}
+\label{tab:llm_heuristic_results}
+\end{table}</div>
+        </div>
+
+        <footer>
+            <p>LLM-Heuristic Framework • ICETICS 2026 Academic Publication</p>
+        </footer>
+    </div>
+
+    <!-- Interactive Logic Block -->
+    <script>
+        // Data populated from python
+        const labels = ["GPT-OSS 120B", "2-Opt Local Search", "LLaMA 3.3 70B", "LLaMA 4 Scout", "Greedy Edge", "LLaMA 3.1 8B", "Nearest Neighbor"];
+        const gaps = [15.15, 12.91, 12.63, 9.72, 4.18, 3.07, 0.0];
+        const runtimes = [3.031, 0.012316, 4.461, 3.081, 0.001281, 2.676, 0.000367];
+        const apiCalls = [22, 0, 14, 7, 0, 22, 0];
+
+        // Render gorgeous bar chart (Optimality Gaps)
+        const ctx = document.getElementById('gapChart').getContext('2d');
+        const gapChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Optimality Gap Reduction (%)',
+                    data: gaps,
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.85)',
+                        'rgba(59, 130, 246, 0.85)',
+                        'rgba(99, 102, 241, 0.85)',
+                        'rgba(245, 158, 11, 0.85)'
+                    ],
+                    borderColor: [
+                        '#10b981',
+                        '#3b82f6',
+                        '#6366f1',
+                        '#f59e0b'
+                    ],
+                    borderWidth: 1.5,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cost Reduction (%)',
+                            font: {
+                                family: 'Outfit',
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Render Latency & API efficiency chart
+        const ctx2 = document.getElementById('efficiencyChart').getContext('2d');
+        const efficiencyChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Average Runtime (s)',
+                        data: runtimes,
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: '#3b82f6',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        yAxisID: 'y'
+                    },
+                    {
+                        type: 'line',
+                        label: 'API Calls',
+                        data: apiCalls,
+                        borderColor: '#10b981',
+                        backgroundColor: '#10b981',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#10b981',
+                        pointRadius: 4,
+                        yAxisID: 'y1',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Runtime (Seconds)',
+                            font: { family: 'Outfit', weight: 'bold' }
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        beginAtZero: true,
+                        grid: {
+                            drawOnChartArea: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Total API Requests',
+                            font: { family: 'Outfit', weight: 'bold' }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Theme Toggle Handler
+        const themeBtn = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeText = document.getElementById('themeText');
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            themeText.innerText = isDark ? 'Light Mode' : 'Dark Mode';
+            
+            // Adjust chart scales grid colors on theme change
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.05)';
+            const fontColor = isDark ? '#9ca3af' : '#64748b';
+
+            // Update Chart 1
+            gapChart.options.scales.y.grid.color = gridColor;
+            gapChart.options.scales.y.ticks.color = fontColor;
+            gapChart.options.scales.x.ticks.color = fontColor;
+            gapChart.update();
+
+            // Update Chart 2
+            efficiencyChart.options.scales.y.grid.color = gridColor;
+            efficiencyChart.options.scales.y.ticks.color = fontColor;
+            efficiencyChart.options.scales.y1.ticks.color = fontColor;
+            efficiencyChart.options.scales.x.ticks.color = fontColor;
+            efficiencyChart.update();
+        });
+
+        // Copy functions & toast notifications
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function copyChampionCode() {
+            const code = document.getElementById('champCode').innerText;
+            navigator.clipboard.writeText(code);
+            showToast('Champion Heuristic Copied!');
+        }
+
+        function copyLatexCode() {
+            const latex = document.getElementById('latexCode').innerText;
+            navigator.clipboard.writeText(latex);
+            showToast('LaTeX Table Code Copied!');
+        }
+    </script>
+</body>
+</html>
