@@ -2,8 +2,12 @@ import json
 import os
 
 def main():
-    json_path = os.path.join("results", "results_final_run.json")
-    report_path = os.path.join("results", "final_results_report.html")
+    # Dynamically find the project root directory whether run from root or inside a subfolder
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = current_dir if os.path.exists(os.path.join(current_dir, "results")) else os.path.dirname(current_dir)
+
+    json_path = os.path.join(project_root, "results", "results_final_run.json")
+    report_path = os.path.join(project_root, "results", "final_results_report.html")
     
     if not os.path.exists(json_path):
         print(f"Results file '{json_path}' not found yet. Run the benchmarks first!")
@@ -13,7 +17,7 @@ def main():
         data = json.load(f)
 
     # Proactively merge human baseline results if available
-    baseline_path = "baseline_results.json"
+    baseline_path = os.path.join(project_root, "results", "baseline_results.json")
     baselines = {}
     if os.path.exists(baseline_path):
         try:
