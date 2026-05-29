@@ -243,7 +243,7 @@ class LLMClient:
             self._openrouter_ready = False
         
         self._cache = {}
-        self._trace_file = "api_trace.jsonl"
+        self._trace_file = os.path.join("results", "api_trace.jsonl")
 
     def _countdown_sleep(self, seconds):
         for i in range(seconds, 0, -1):

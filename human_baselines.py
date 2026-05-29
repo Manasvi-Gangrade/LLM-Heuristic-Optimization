@@ -375,7 +375,7 @@ def generate_tsp_instances(
 
 def run_all_baselines(
     instances: List[ProblemInstance],
-    save_path: str = "baseline_results.json"
+    save_path: str = "results/baseline_results.json"
 ) -> Dict[str, Any]:
     """
     Run all three human-designed baselines and save results.
@@ -451,7 +451,7 @@ if __name__ == "__main__":
         seed=42
     )
 
-    results = run_all_baselines(instances, save_path="baseline_results.json")
+    results = run_all_baselines(instances, save_path="results/baseline_results.json")
 
     print()
     print("NEXT STEP:")
