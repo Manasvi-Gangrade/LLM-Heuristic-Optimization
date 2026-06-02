@@ -1,9 +1,8 @@
 # LLM-Heuristic: A Framework for Automating Heuristic Design through Large Language Models
 
-**Anonymous Author**  
-*Independent Researcher*  
-*Manuscript in Preparation for ICETICS 2026*  
-*research@example.com*
+**Manasvi Gangrade**  
+*Independent Research Under the Guidance of Prof. Shweta Agrawal IIST*  
+*gangrademanasvi@gmail.com | manasvigangrade2005@gmail.com*
 
 ---
 
